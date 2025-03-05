@@ -38,7 +38,7 @@ export default function Cadastro() {
       const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN
       const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!); // Converte para número
 
-console.log("piepfy url:", PIPEFY_API_URL, "PIPEFE tOKEN:", PIPEFY_TOKEN, "PIEPFY ID:", PIPE_ID)
+//console.log("piepfy url:", PIPEFY_API_URL, "PIPEFE tOKEN:", PIPEFY_TOKEN, "PIEPFY ID:", PIPE_ID)
       const mutation = {
          query: `
             mutation {

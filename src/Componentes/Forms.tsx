@@ -28,7 +28,7 @@ export function Login() {
 
     const alunoAutenticado = await AlunoLoginAutenticacao(email);
 
-    console.log("Aluno autenticado:", alunoAutenticado);
+    //console.log("Aluno autenticado:", alunoAutenticado);
 
     if (alunoAutenticado) {
       setAluno(alunoAutenticado);

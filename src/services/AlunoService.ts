@@ -8,7 +8,7 @@ const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN
 
 const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!); // Converte para número
 
-console.log("URL_PYPEFY", PIPEFY_API_URL, "TOKEN:", PIPEFY_TOKEN, "PIPEID", PIPE_ID)
+//console.log("URL_PYPEFY", PIPEFY_API_URL, "TOKEN:", PIPEFY_TOKEN, "PIPEID", PIPE_ID)
 
 export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | null> {
 
@@ -128,11 +128,11 @@ export const transferirBitcoin = async (
 ) => {
 
   console.log("🚀 Iniciando transferência de Bitcoin...");
-  console.log("📌 Remetente ID:", remetenteId);
-  console.log("📌 Destinatário ID:", destinatarioId);
-  console.log("📌 Quantidade:", quantidade);
+  //console.log("📌 Remetente ID:", remetenteId);
+  //console.log("📌 Destinatário ID:", destinatarioId);
+ // console.log("📌 Quantidade:", quantidade);
 
-  console.log("valor do bitcoin do remetente", user_bitcoin)
+  //console.log("valor do bitcoin do remetente", user_bitcoin)
   // 🔹 1️⃣ BUSCAR O SALDO ATUAL DO DESTINATÁRIO
   const getBalanceQuery = `
      query {
@@ -200,7 +200,7 @@ export const transferirBitcoin = async (
     });
 
     const updateRemetenteData = await updateRemetenteResponse.json();
-    console.log("📄 Resposta da atualização do remetente:", JSON.stringify(updateRemetenteData, null, 2));
+    //console.log("📄 Resposta da atualização do remetente:", JSON.stringify(updateRemetenteData, null, 2));
 
     if (updateRemetenteData.errors) {
       console.error("❌ Erro ao atualizar saldo do remetente:", updateRemetenteData.errors);
@@ -229,7 +229,7 @@ export const transferirBitcoin = async (
     });
 
     const updateDestinatarioData = await updateDestinatarioResponse.json();
-    console.log("📄 Resposta da atualização do destinatário:", JSON.stringify(updateDestinatarioData, null, 2));
+    //"📄 Resposta da atualização do destinatário:", JSON.stringify(updateDestinatarioData, null, 2));
 
     if (updateDestinatarioData.errors) {
       console.error("❌ Erro ao atualizar saldo do destinatário:", updateDestinatarioData.errors);

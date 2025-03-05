@@ -22,7 +22,7 @@ interface CardProoductProps {
 }
 export default function CardProduct({ categoriaDoProduto, description, price, time, title, IsOculosVrImg , onClick}: CardProoductProps) {
 
-console.log('ver', IsOculosVrImg)
+//console.log('ver', IsOculosVrImg)
   return (
 
     <div className="">

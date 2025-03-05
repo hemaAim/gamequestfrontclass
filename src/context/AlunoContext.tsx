@@ -26,7 +26,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
     if (window.location.pathname !== "/login") {
       router.push("/login");
     }
-  }, [router]);
+  }, []);
 
   const resetTimer = useCallback(() => {
     if (!aluno) return;
@@ -45,7 +45,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
       setAluno(storedAluno);
       resetTimer(); // Reinicia o timer ao carregar o aluno
     }
-  }, [resetTimer]);
+  }, []);
 
   const carregarAluno = async (email: string) => {
     const alunoAutenticado = await AlunoLoginAutenticacao(email);
@@ -69,7 +69,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("mousemove", handleActivity);
       window.removeEventListener("keydown", handleActivity);
     };
-  }, [aluno, resetTimer]);
+  }, [aluno]);
 
   return (
     <AlunoContext.Provider value={{ aluno, carregarAluno, logout }}>

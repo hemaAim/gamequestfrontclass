@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-
 import { useRouter } from "next/navigation";
 import { useAluno } from "@/context/AlunoContext";
 import { Orbitron } from "next/font/google";
@@ -11,29 +10,31 @@ const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [ , setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(null); // Agora está correto
   const router = useRouter();
   const { aluno, carregarAluno } = useAluno();
 
+  // 🔄 Verifica se o aluno já está logado e redireciona
   useEffect(() => {
+    //console.log("Estado do aluno:", aluno);
     if (aluno) {
-      router.push("/dashboard"); 
+      console.log("Redirecionando para /dashboard");
+      router.replace("/dashboard");
     }
-  }, [aluno, router]);
+  }, [aluno]);
 
-
+  // 🔑 Função de Login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError(null);
 
-
-
     try {
-      await carregarAluno(email); 
-      router.push("/dashboard"); 
-    } catch (error) { 
-      console.log(error)
+      await carregarAluno(email);
+      console.log("✅ Login bem-sucedido! Redirecionando...");
+      setTimeout(() => router.push("/dashboard"), 500); // Pequeno delay para evitar conflitos
+    } catch (error) {
+      console.log("❌ Erro ao autenticar:", error);
       setError("Aluno não encontrado.");
     }
 
@@ -42,41 +43,56 @@ export default function Login() {
 
   return (
     <div className="w-full h-screen bg-white">
-
-
-
       <form className="flex min-h-screen" onSubmit={handleLogin}>
-
         {/* Left Side - Login Form */}
         <div className="w-1/2 bg-gray-900 text-white flex flex-col justify-center items-center p-8">
           <h2 className="text-2xl font-semibold mb-6">Bem Vindo</h2>
 
-          <input type="email"
+          <input
+            type="email"
             id="email"
             placeholder="Email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 mb-3 bg-gray-800 rounded border border-gray-700 text-white" />
+            className="w-full p-2 mb-3 bg-gray-800 rounded border border-gray-700 text-white"
+          />
 
-          <input type="password" placeholder="Password" className="w-full p-2 mb-3 bg-gray-800 rounded border border-gray-700 text-white" />
-          <div className="flex items-center justify-between w-full mb-4">
-           
+          <input
+            type="password"
+            placeholder="Password"
+            className="w-full p-2 mb-3 bg-gray-800 rounded border border-gray-700 text-white"
+          />
 
-          </div>
-          <button className="w-full bg-orange-600 py-2 rounded text-white font-semibold" type="submit" disabled={loading} > {loading ? "Carregando..." : "Login"}</button>
-          <p className="text-gray-500 text-sm mt-4">Dont have an account? <a href="/cadastro" className="text-blue-400">cadastro</a></p>
+          {error && <p className="text-red-500 text-sm">{error}</p>}
+
+          <button
+            className="w-full bg-orange-600 py-2 rounded text-white font-semibold"
+            type="submit"
+            disabled={loading}
+          >
+            {loading ? "Carregando..." : "Login"}
+          </button>
+          
+          <p className="text-gray-500 text-sm mt-4">
+            Não tem uma conta?{" "}
+            <a href="/cadastro" className="text-blue-400">
+              Cadastre-se
+            </a>
+          </p>
         </div>
 
         {/* Right Side - Information */}
         <div className="w-1/2 bg-orange-600 text-white flex flex-col justify-center items-center p-8">
-          <h2 className={`${orbitron.className} text-3xl font-bold mb-4`}>GAME QUEST</h2>
-          <h3 className="text-2xl font-semibold mb-4">Suba de nível e desbloqueie novas conquistas!</h3>
+          <h2 className={`${orbitron.className} text-3xl font-bold mb-4`}>
+            GAME QUEST
+          </h2>
+          <h3 className="text-2xl font-semibold mb-4">
+            Suba de nível e desbloqueie novas conquistas!
+          </h3>
           <p className="text-center text-lg max-w-md mb-6">
-            Junte-se a uma comunidade dinâmica onde cada desafio concluído lhe rende pontos, medalhas e recompensas. Compita com amigos, suba no ranking e torne-se um mestre na sua área!
-
+            Junte-se a uma comunidade dinâmica onde cada desafio concluído lhe rende pontos, 
+            medalhas e recompensas. Compita com amigos, suba no ranking e torne-se um mestre na sua área!
           </p>
-
-
         </div>
       </form>
     </div>

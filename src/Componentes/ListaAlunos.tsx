@@ -37,7 +37,7 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
                return emailAluno.toLowerCase() !== email?.toLowerCase();
             });
 
-            console.log("Alunos filtrados ", alunosFiltrados)
+            //console.log("Alunos filtrados ", alunosFiltrados)
             setAlunos(alunosFiltrados)
          } catch (error) {
             console.log(error)

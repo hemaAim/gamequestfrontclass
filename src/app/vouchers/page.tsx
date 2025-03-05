@@ -40,7 +40,7 @@ export default function Vouchers() {
       if (aluno) {
         try {
           const vouchersComprados = await VoucherPorAluno(aluno.id);
-          console.log("Vouchers comprados:", vouchersComprados);
+         // console.log("Vouchers comprados:", vouchersComprados);
           setVouchers(vouchersComprados);
         } catch (error) {
           console.error("Erro ao buscar vouchers:", error);

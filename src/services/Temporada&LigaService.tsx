@@ -164,10 +164,10 @@ export class TemporadaELigaService {
             .flatMap((field: any) => field.connectedRepoItems || []) // Garante que só pega os itens conectados
             .map((item: any) => item.id); // Extrai os IDs
 
-         console.log("IDs conectados de 'Alunos Participantes':", connectedIds);
+         //console.log("IDs conectados de 'Alunos Participantes':", connectedIds);
 
          if (connectedIds.includes(IdRemetente.toString())) {
-            console.log(`O aluno com ID ${IdRemetente} já está inserido na temporada.`);
+            //console.log(`O aluno com ID ${IdRemetente} já está inserido na temporada.`);
             return [`O aluno com ID ${IdRemetente} já está inserido na temporada.`];
          }
          const UpdateMutationInTemporada = `
@@ -231,12 +231,12 @@ export class TemporadaELigaService {
             body: JSON.stringify({ query }),
          });
 
-         console.log("Resposta da API:", response);
+         //console.log("Resposta da API:", response);
 
          if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
 
          const data = await response.json();
-         console.log("Resposta da API data:", JSON.stringify(data, null, 2));
+         //console.log("Resposta da API data:", JSON.stringify(data, null, 2));
 
          // Filtra o campo "Desafios da temporada" e retorna os desafios conectados
          const desafiosConectados: Desafio[] = data.data.card.fields
@@ -266,7 +266,7 @@ export class TemporadaELigaService {
                };
             });
 
-         console.log("Desafios conectados:", desafiosConectados);
+        // console.log("Desafios conectados:", desafiosConectados);
          return desafiosConectados;
 
       } catch (error) {

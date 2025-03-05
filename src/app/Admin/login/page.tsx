@@ -32,7 +32,7 @@ export default function LoginAdm() {
       }
    
       try {
-         console.log("Tentando carregar professor com o email:", email); // Log para verificar a chamada
+        // console.log("Tentando carregar professor com o email:", email); // Log para verificar a chamada
          await carregarProfessor(email); // Atualiza o contexto
          router.push("/Admin/dashboard"); // Redireciona para o dashboard após login
       } catch (error) {

@@ -49,7 +49,7 @@ export default function TemporadaELiga() {
       if (temporadaELiga.length > 0) {
          TemporadaELigaService.PegarDesafiosDaTemporada(temporadaELiga[0].id)
             .then((data) => {
-               console.log("Desafios carregados:", data);
+              // console.log("Desafios carregados:", data);
                setDesafios(data);
             })
             .catch((err) => console.error("Erro ao buscar desafios:", err));
@@ -67,7 +67,7 @@ export default function TemporadaELiga() {
 
          await TemporadaELigaService.AdicionandoAlunoNaTemporada(alunoId, temporadaId);
          toast.success("Você foi adicionado à temporada com sucesso!");
-         console.log("Aluno adicionado à temporada:", temporadaId);
+        // console.log("Aluno adicionado à temporada:", temporadaId);
 
       } catch (error) {
          toast.error("Erro ao adicionar você à temporada, chame seu professor");

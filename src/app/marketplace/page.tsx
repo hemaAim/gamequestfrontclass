@@ -50,7 +50,7 @@ export default function Marketplace() {
     try {
       const resultado = await AlunoComprandoNoMarketplace(aluno.id, idProduto);
   
-      console.log("Resultado da compra:", resultado);
+      //console.log("Resultado da compra:", resultado);
   
       if (resultado.some(msg => msg.includes("Saldo insuficiente 😞. Seu saldo é de") || msg.includes("você já possui este produto"))) {
         // Se a resposta indicar que o aluno já tem o produto ou não pode comprar
@@ -66,7 +66,7 @@ export default function Marketplace() {
   }
   
   
-  console.log("Dados do marketpalce", marketplace)
+ // console.log("Dados do marketpalce", marketplace)
   return (
     <div className="max-w-7xl flex flex-col items-center gap-5 p-2">
       <Header />

@@ -47,8 +47,8 @@ export async function AdmLoginAutenticacao(email: string): Promise<Adm | null> {
       }
 
       const data = await response.json();
-      console.log("Dados recebidos do Pipefy:", data);
-      console.log("Membros encontrados:", data.data.table.members.user.email);
+      //console.log("Dados recebidos do Pipefy:", data);
+      //console.log("Membros encontrados:", data.data.table.members.user.email);
       // Verificando se members está sendo retornado corretamente
       if (!data?.data?.table?.members?.length) {
          console.log("Nenhum membro encontrado.");
