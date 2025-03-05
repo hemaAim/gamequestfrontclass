@@ -7,6 +7,7 @@ import { useAluno } from "@/context/AlunoContext";
 import { Orbitron } from "next/font/google";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
@@ -59,9 +60,7 @@ export default function Login() {
 
           <input type="password" placeholder="Password" className="w-full p-2 mb-3 bg-gray-800 rounded border border-gray-700 text-white" />
           <div className="flex items-center justify-between w-full mb-4">
-            <label className="flex items-center text-sm">
-              <input type="checkbox" className="mr-2" /> Remember me
-            </label>
+           
 
           </div>
           <button className="w-full bg-orange-600 py-2 rounded text-white font-semibold" type="submit" disabled={loading} > {loading ? "Carregando..." : "Login"}</button>

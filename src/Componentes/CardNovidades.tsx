@@ -6,7 +6,7 @@ interface CardDesafioProps {
    description: string;
    imageSrc: string;
    BorderPosition?: string
-   LinkPages: string
+   LinkPages: any
 }
 
 export function CardNovidades({ title, description, imageSrc,   BorderPosition, LinkPages }: CardDesafioProps) {
