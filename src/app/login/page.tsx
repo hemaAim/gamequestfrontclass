@@ -30,8 +30,8 @@ export default function Login() {
 
 
     try {
-      await carregarAluno(email); // Atualiza o contexto
-      router.push("/dashboard"); // Redireciona após login
+      await carregarAluno(email); 
+      router.push("/dashboard"); 
     } catch (error) { 
       console.log(error)
       setError("Aluno não encontrado.");

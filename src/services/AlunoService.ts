@@ -8,7 +8,7 @@ const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN
 
 const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!); // Converte para número
 
-console.log("URL_PYPEFY", PIPEFY_API_URL)
+console.log("URL_PYPEFY", PIPEFY_API_URL, "TOKEN:", PIPEFY_TOKEN, "PIPEID", PIPE_ID)
 
 export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | null> {
 
