@@ -7,12 +7,11 @@ import { useAluno } from "@/context/AlunoContext";
 import { Orbitron } from "next/font/google";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
-export default function cadastro() {
-   const [email, setEmail] = useState("");
-   const [loading, setLoading] = useState(false);
-   const [error, setError] = useState<string | null>(null);
+export default function Cadastro() {
+
+
    const router = useRouter();
-   const { aluno, carregarAluno } = useAluno(); // Acesso ao contexto
+   const { aluno } = useAluno(); // Acesso ao contexto
 
    const [formData, setFormData] = useState({
       nome: "",
@@ -27,20 +26,7 @@ export default function cadastro() {
       }
    }, [aluno, router]);
 
-   const handleLogin = async (e: React.FormEvent) => {
-      e.preventDefault();
-      setLoading(true);
-      setError(null);
-
-      try {
-         await carregarAluno(email); // Atualiza o contexto
-         router.push("/dashboard"); // Redireciona após login
-      } catch (error) {
-         setError("Aluno não encontrado.");
-      }
-
-      setLoading(false);
-   };
+ 
    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
       setFormData({ ...formData, [e.target.name]: e.target.value });
    };

@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Adm } from "@/types/ADM";
 
 const PIPEFY_API_URL = process.env.NEXT_PUBLIC_PIPEFY_API_URL!;
 const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN;
 
-const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!);
+//const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!);
 
 export async function AdmLoginAutenticacao(email: string): Promise<Adm | null> {
    const queryLogin = `

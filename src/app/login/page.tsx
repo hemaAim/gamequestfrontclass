@@ -10,7 +10,7 @@ const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const [ , setError] = useState<string | null>(null);
   const router = useRouter();
   const { aluno, carregarAluno } = useAluno();
 
@@ -31,7 +31,8 @@ export default function Login() {
     try {
       await carregarAluno(email); // Atualiza o contexto
       router.push("/dashboard"); // Redireciona após login
-    } catch (error) {
+    } catch (error) { 
+      console.log(error)
       setError("Aluno não encontrado.");
     }
 
@@ -64,7 +65,7 @@ export default function Login() {
 
           </div>
           <button className="w-full bg-orange-600 py-2 rounded text-white font-semibold" type="submit" disabled={loading} > {loading ? "Carregando..." : "Login"}</button>
-          <p className="text-gray-500 text-sm mt-4">Don't have an account? <a href="cadastro" className="text-blue-400">cadastro</a></p>
+          <p className="text-gray-500 text-sm mt-4">Dont have an account? <a href="/cadastro" className="text-blue-400">cadastro</a></p>
         </div>
 
         {/* Right Side - Information */}

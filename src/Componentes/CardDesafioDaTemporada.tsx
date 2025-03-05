@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
-import { FaGlobe, FaGamepad, } from "react-icons/fa";
+
 
 
 
@@ -25,7 +26,7 @@ export default function CardDesafioDaTemporada({
    ponto,
    duracao,
    isHot,
-   isCreatorsLove,
+
    onClick
 }: CardDesafioDaTemporadaProps) {
    return (

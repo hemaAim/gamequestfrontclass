@@ -1,3 +1,5 @@
+
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { MarketplaceService } from "../services/marketplaceService";
 import { Marketplaces} from "@/types/Marketplace";

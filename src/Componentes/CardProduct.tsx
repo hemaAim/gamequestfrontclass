@@ -1,5 +1,5 @@
-"use client"; // Se for usar hooks, estados, etc.
 
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 
 import { Orbitron } from "next/font/google";

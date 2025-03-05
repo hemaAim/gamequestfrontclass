@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Desafio } from "@/types/Desafios";
 import { TemporadaELiga } from "@/types/TemporadaELiga"
 
@@ -124,7 +125,7 @@ export class TemporadaELigaService {
       }
    }
 
-   static async AdicionandoAlunoNaTemporada(IdRemetente: Number, IdTemporada: Number): Promise<string[]> {
+   static async AdicionandoAlunoNaTemporada(IdRemetente: number, IdTemporada: number): Promise<string[]> {
       const query = `
       {
          card(id: ${IdTemporada}) {

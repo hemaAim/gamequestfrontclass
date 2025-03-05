@@ -1,16 +1,16 @@
 "use client"
 
-import { useRouter } from "next/navigation";
+
 import {useAluno} from "@/context/AlunoContext"
 import { Orbitron } from "next/font/google";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 export function Header() {
 
-  const router = useRouter(); 
+
 
   
-  const {aluno, logout,} = useAluno();
+  const { logout} = useAluno();
   return (
 
     <>

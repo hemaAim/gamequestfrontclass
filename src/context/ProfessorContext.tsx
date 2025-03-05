@@ -1,6 +1,5 @@
-"use client";
-
-import { createContext, useContext, useState, useEffect, ReactNode, useRef } from "react";
+"use client"
+import { createContext, useContext, useState, useEffect, ReactNode, useRef, useCallback } from "react";
 import { Adm } from "@/types/ADM";
 import { AdmLoginAutenticacao } from "@/services/AdmService";
 import { useRouter } from "next/navigation";
@@ -20,7 +19,8 @@ export function ProfessorProvider({ children }: { children: ReactNode }) {
 
   const logoutTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const resetTimer = () => {
+  // Usando useCallback para evitar recriação da função em cada render
+  const resetTimer = useCallback(() => {
     if (!professor) return;
 
     if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
@@ -28,7 +28,7 @@ export function ProfessorProvider({ children }: { children: ReactNode }) {
     logoutTimerRef.current = setTimeout(() => {
       logout();
     }, 600000); // 10 minutos
-  };
+  }, [professor]); // Dependendo apenas de `professor`
 
   // Inicializa o professor com dados do localStorage
   useEffect(() => {
@@ -37,7 +37,7 @@ export function ProfessorProvider({ children }: { children: ReactNode }) {
       setProfessor(storedProfessor);
       resetTimer(); // Reinicia o timer ao carregar o professor
     }
-  }, []);
+  }, [resetTimer]);
 
   const carregarProfessor = async (email: string) => {
     const professorAutenticado = await AdmLoginAutenticacao(email);
@@ -48,19 +48,18 @@ export function ProfessorProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const logout = () => {
+  const logout = useCallback(() => {
     setProfessor(null);
     StorageService.removeItem("professor");
 
-    // Só redireciona se o usuário **não** estiver já na página de login
     if (window.location.pathname !== "/login") {
       router.push("/login");
     }
-  };
+  }, [router]);
 
   // Adiciona event listeners para resetar o timer em qualquer interação do usuário
   useEffect(() => {
-    if (!professor) return; // Evita que event listeners sejam adicionados se o professor não estiver logado
+    if (!professor) return;
 
     const handleActivity = () => resetTimer();
 
@@ -71,7 +70,7 @@ export function ProfessorProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("mousemove", handleActivity);
       window.removeEventListener("keydown", handleActivity);
     };
-  }, [professor]); // Só adiciona os event listeners quando `professor` estiver definido
+  }, [professor, resetTimer]);
 
   return (
     <ProfessorContext.Provider value={{ professor, carregarProfessor, logout }}>

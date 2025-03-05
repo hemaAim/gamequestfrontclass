@@ -11,14 +11,14 @@ import { useTemporadaELiga } from "@/hooks/useTemporadaELiga";
 import Image from "next/image";
 import Countdown from "@/Componentes/Countdown";
 import { Button } from "@/components/ui/button";
-import { CardDesafios } from "@/Componentes/CardDesafios";
+
 import { Desafio } from "@/types/Desafios";
 import { TemporadaELigaService } from "@/services/Temporada&LigaService";
 import CardDesafioDaTemporada from "@/Componentes/CardDesafioDaTemporada";
 import { toast } from "sonner";
 
 
-import { FaBitcoin, FaGamepad, FaGlobe } from "react-icons/fa";
+import { FaBitcoin, FaGlobe } from "react-icons/fa";
 import { imagens } from "./IMGCard";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
@@ -37,7 +37,7 @@ export default function TemporadaELiga() {
       } else {
          router.push("/login");
       }
-   }, []);
+   }, [router]);
 
    useEffect(() => {
       if (!aluno) return;

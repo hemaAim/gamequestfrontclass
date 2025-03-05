@@ -1,5 +1,6 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Sparkles, Trophy, Users } from "lucide-react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {  CardContent } from "@/components/ui/card";
+import {  Trophy, Users } from "lucide-react";
 import { Orbitron } from "next/font/google";
 import Image from "next/image";
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
@@ -22,17 +23,15 @@ interface TemporadaDaLigaCardProps {
 }
 
 export default function TemporadaDaLigaCard({
-  AlunoTop3,
-  AlunosParticipante,
+ 
   Data_fim,
   Data_inicio,
   onclick,
-  DesafiosDaTemporada,
-  QuantidadeDeCryptoFixo,
-  XpParaPremiacao,
+ 
+ 
   description,
-  quantidadeDeDesafios,
-  status,
+ 
+  
   title,
   showVerDesafios, // Receive the prop
 }: TemporadaDaLigaCardProps) {

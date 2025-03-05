@@ -11,15 +11,10 @@ import { CardNovidades } from "@/Componentes/CardNovidades";
 import { Header } from "@/Componentes/Header";
 import ListaAlunos from "@/Componentes/ListaAlunos";
 import { AlunoProvider } from "@/context/AlunoContext";
-import { CardLevelUp } from "@/Componentes/temp";
-import CyberpunkSeasonsCard from "@/Componentes/TemporadaLiga";
+
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
-const levelImages = {
-  1: "/Escudo-iniciante.svg",
-  2: "/images/level2.png",
-  3: "/images/level3.png",
-};
+
 export default function Dashboard() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const router = useRouter(); // Inicializa o roteador do Next.js
@@ -32,7 +27,7 @@ export default function Dashboard() {
     } else {
       router.push("/login"); 
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const cleanup = AlunoAtualizacao(aluno, setAluno);

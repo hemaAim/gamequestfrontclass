@@ -1,9 +1,9 @@
 "use client"
 
-import { useState, useEffect, ComponentType } from "react";
+import { useState, useEffect} from "react";
 import { Orbitron } from "next/font/google";
 import { Aluno } from "@/types/Aluno";  // Importando o tipo Aluno
-import { fetchAlunosFromAPI, TranferirPontosAoAluno, transferirBitcoin } from "../services/AlunoService";  // Importando o serviço de alunos
+import { fetchAlunosFromAPI, transferirBitcoin } from "../services/AlunoService";  // Importando o serviço de alunos
 import DetalhesAlunoModal from "./ModalTranferenciaParaAluno";
 import { useAluno } from "@/context/AlunoContext";
 
@@ -23,9 +23,9 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
    const [erro, setErro] = useState<string>("");
    const [alunoSelecionado, setAlunoSelecionado] = useState<Aluno | null>(null);
    const [valorTransferencia, setValorTransferencia] = useState<number | "">("");
-   const [erroTransferencia, setErroTransferencia] = useState<string>("");
+   const [, setErroTransferencia] = useState<string>("");
    const [termoPesquisa, setTermoPesquisa] = useState("");
-   const { aluno, carregarAluno } = useAluno();
+   const { aluno} = useAluno();
    useEffect(() => {
       const fetchData = async () => {
          try {
@@ -38,8 +38,9 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
             });
 
             console.log("Alunos filtrados ", alunosFiltrados)
-            setAlunos(alunosFiltrados);
+            setAlunos(alunosFiltrados)
          } catch (error) {
+            console.log(error)
             setErro("Erro ao carregar alunos. Tente novamente.");
          } finally {
             setLoading(false);
@@ -76,7 +77,7 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
 
       const sucesso = await transferirBitcoin(
          valorAtualizadoParaNumero,
-         aluno?.id || '',
+         aluno?.id || "",
          alunoSelecionado.id,
          Number(valorTransferencia) || 0
       );

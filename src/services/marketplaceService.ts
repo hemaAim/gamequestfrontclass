@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Marketplaces } from "@/types/Marketplace";
 const PIPEFY_API_URL = process.env.NEXT_PUBLIC_PIPEFY_API_URL!;
 const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN

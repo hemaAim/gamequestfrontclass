@@ -1,7 +1,6 @@
-import { Marketplaces } from "./Marketplace";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export interface Aluno  {
-   id: number ;
+   id: number | string | any ;
    nome_do_aluno: string;
    s_rie_do_aluno: string;
    email: string;

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { DesafioService } from "../services/DesafioService";
 import { Desafio } from "@/types/Desafios";
@@ -20,7 +21,7 @@ export function useDesafios(NumberId: number) {
       }
 
       carregarDesafios();
-   }, []);
+   }, [NumberId]);
 
    return { desafios, loading, erro };
 }

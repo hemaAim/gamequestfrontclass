@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Desafio } from "@/types/Desafios";
 
 const PIPEFY_API_URL = process.env.NEXT_PUBLIC_PIPEFY_API_URL!;

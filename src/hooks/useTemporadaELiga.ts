@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { TemporadaELigaService } from "../services/Temporada&LigaService";
 
@@ -21,7 +22,7 @@ export function useTemporadaELiga(PhaseNumberId: number) {
       }
 
       carregarTemporadaELiga();
-   }, []);
+   }, [PhaseNumberId]);
 
    return { temporadaELiga, loading, erro };
 }

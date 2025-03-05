@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import { StorageService } from "@/services/localStorageService";
-import { CardDashboard } from "@/Componentes/Card-dashboard";
+
+
 import { Orbitron } from "next/font/google";
 import { Header } from "@/Componentes/Header";
 import { AdmLoginAutenticacao } from "@/services/AdmService"; // Importe a função de autenticação
@@ -15,7 +14,7 @@ const PROFESSOR_EMAIL = "Aimhema11@gmail.com"; // E-mail do professor para teste
 
 export default function AdminDashboard() {
   const [isProfessor, setIsProfessor] = useState<Adm | null>(null);
-  const router = useRouter();
+
 
   useEffect(() => {
     const loadProfessor = async () => {

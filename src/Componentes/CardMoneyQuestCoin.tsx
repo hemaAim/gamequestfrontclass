@@ -1,4 +1,4 @@
-import Image from "next/image";
+
 import { FaBitcoin } from "react-icons/fa";
 interface CardMoneyQuestCoinProps{  
 

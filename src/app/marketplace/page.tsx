@@ -10,9 +10,9 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Orbitron } from "next/font/google";
 import { useMarketplace } from "@/hooks/useMarketplace";
-import { Marketplaces } from "@/types/Marketplace";
+
 import { AlunoComprandoNoMarketplace } from "@/services/AlunoService";
-import { DiscountCoupon } from "@/Componentes/vouchers";
+
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
@@ -20,9 +20,9 @@ export default function Marketplace() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const router = useRouter();
 
-  const { marketplace, loading, erro } = useMarketplace();
+  const { marketplace,  } = useMarketplace();
 
-  const [MarketplaceSelecionado, setMarketplaceSelecionado] = useState<Marketplaces | null>(null);
+  
   useEffect(() => {
     const storedAluno = StorageService.getItem<Aluno>("aluno");
 
@@ -31,7 +31,7 @@ export default function Marketplace() {
     } else {
       router.push("/login"); // Redireciona para login se não houver aluno autenticado
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const cleanup = AlunoAtualizacao(aluno, setAluno);

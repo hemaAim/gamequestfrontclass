@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 
 interface CountdownProps {
    targetDate: string;
@@ -7,17 +7,16 @@ interface CountdownProps {
 }
 
 export default function Countdown({ targetDate, Finaliza_em }: CountdownProps) {
-   const formatDate = (dateStr: string) => {
-
+   const formatDate = useCallback((dateStr: string) => {
       const [day, month, yearWithTime] = dateStr.split("/");
       const [year, time] = yearWithTime.split(" ");
       const [hour, minute] = time.split(":");
       const formattedDate = `${year}-${month}-${day}T${hour}:${minute}:00`;
 
       return new Date(formattedDate).getTime();
-   };
+   }, []);
 
-   const calculateTimeLeft = () => {
+   const calculateTimeLeft = useCallback(() => {
       const difference = formatDate(targetDate) - new Date().getTime();
       return {
          days: Math.floor(difference / (1000 * 60 * 60 * 24)),
@@ -25,14 +24,14 @@ export default function Countdown({ targetDate, Finaliza_em }: CountdownProps) {
          minutes: Math.floor((difference / (1000 * 60)) % 60),
          seconds: Math.floor((difference / 1000) % 60),
       };
-   };
+   }, [formatDate, targetDate]);
 
    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
 
    useEffect(() => {
       const timer = setInterval(() => setTimeLeft(calculateTimeLeft()), 1000);
       return () => clearInterval(timer);
-   }, [targetDate]);
+   }, [calculateTimeLeft]); // Agora `calculateTimeLeft` é uma dependência estável
 
    return (
       <div className="flex flex-col items-start space-y-4 mt-4 mb-5">
@@ -40,7 +39,7 @@ export default function Countdown({ targetDate, Finaliza_em }: CountdownProps) {
          <div className="flex space-x-4">
             {Object.entries(timeLeft).map(([unit, value]) => (
                <div key={unit} className="flex flex-col items-center">
-                  <div className="w-20 h-20 bg-gradient-to-b from-purple-300/10 to-orange-600 text-white  border border-orange-700/40 flex items-center justify-center text-3xl font-bold rounded-sm shadow-md">
+                  <div className="w-20 h-20 bg-gradient-to-b from-purple-300/10 to-orange-600 text-white border border-orange-700/40 flex items-center justify-center text-3xl font-bold rounded-sm shadow-md">
                      {String(value).padStart(2, "0")}
                   </div>
                   <p className="text-base text-white font-semibold uppercase">{unit}</p>

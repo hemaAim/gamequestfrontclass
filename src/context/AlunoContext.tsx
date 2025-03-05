@@ -1,6 +1,5 @@
-"use client";
-
-import { createContext, useContext, useState, useEffect, ReactNode, useRef } from "react";
+"use client"
+import { createContext, useContext, useState, useEffect, ReactNode, useRef, useCallback } from "react";
 import { Aluno } from "@/types/Aluno";
 import { AlunoLoginAutenticacao } from "@/services/AlunoService";
 import { useRouter } from "next/navigation";
@@ -20,7 +19,16 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
 
   const logoutTimerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const resetTimer = () => {
+  const logout = useCallback(() => {
+    setAluno(null);
+    StorageService.removeItem("aluno");
+
+    if (window.location.pathname !== "/login") {
+      router.push("/login");
+    }
+  }, [router]);
+
+  const resetTimer = useCallback(() => {
     if (!aluno) return;
 
     if (logoutTimerRef.current) clearTimeout(logoutTimerRef.current);
@@ -28,8 +36,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
     logoutTimerRef.current = setTimeout(() => {
       logout();
     }, 600000); // 10 minutos
-  };
-
+  }, [aluno, logout]); // Agora, `resetTimer` depende apenas de `aluno` e `logout`
 
   // Inicializa o aluno com dados do localStorage
   useEffect(() => {
@@ -38,7 +45,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
       setAluno(storedAluno);
       resetTimer(); // Reinicia o timer ao carregar o aluno
     }
-  }, []);
+  }, [resetTimer]);
 
   const carregarAluno = async (email: string) => {
     const alunoAutenticado = await AlunoLoginAutenticacao(email);
@@ -49,19 +56,9 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
     }
   };
 
-  const logout = () => {
-    setAluno(null);
-    StorageService.removeItem("aluno");
-
-    // Só redireciona se o usuário **não** estiver já na página de login
-    if (window.location.pathname !== "/login") {
-      router.push("/login");
-    }
-  };
-
   // Adiciona event listeners para resetar o timer em qualquer interação do usuário
   useEffect(() => {
-    if (!aluno) return; // Evita que event listeners sejam adicionados se o aluno não estiver logado
+    if (!aluno) return;
 
     const handleActivity = () => resetTimer();
 
@@ -72,7 +69,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("mousemove", handleActivity);
       window.removeEventListener("keydown", handleActivity);
     };
-  }, [aluno]); // Só adiciona os event listeners quando `aluno` estiver definido
+  }, [aluno, resetTimer]);
 
   return (
     <AlunoContext.Provider value={{ aluno, carregarAluno, logout }}>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 
 interface DetalhesProps {
@@ -81,7 +82,7 @@ const DetalhesAlunoModal = ({
             />
 
             <button
-              onClick={(e) => { handleTransferencia() }}
+              onClick={() => { handleTransferencia() }}
               className="mt-4 px-4 py-2 bg-green-700 text-white rounded-sm hover:bg-blue-700"
             >
               Transferir

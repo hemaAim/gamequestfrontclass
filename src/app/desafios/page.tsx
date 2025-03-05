@@ -7,7 +7,7 @@ import { AlunoAtualizacao, StorageService } from "@/services/localStorageService
 
 import { Orbitron } from "next/font/google";
 import { CardMoneyQuestCoin } from "@/Componentes/CardMoneyQuestCoin";
-import { CardNovidades } from "@/Componentes/CardNovidades";
+
 import { Header } from "@/Componentes/Header";
 import { CardDesafios } from "@/Componentes/CardDesafios";
 import { Desafio } from "@/types/Desafios";
@@ -20,7 +20,7 @@ export default function Desafios() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const router = useRouter(); // Inicializa o roteador do Next.js
   //passando o ID da phase do piepfy, nesse cenario esta sendo usado os card do campo atividades
-  const { desafios, loading, erro } = useDesafios(334266439);
+  const { desafios } = useDesafios(334266439);
 
   const [desafioSelecionado, setDesafioSelecionado] = useState<Desafio | null>(null);
 
@@ -33,7 +33,7 @@ export default function Desafios() {
     } else {
       router.push("/login");
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const cleanup = AlunoAtualizacao(aluno, setAluno);

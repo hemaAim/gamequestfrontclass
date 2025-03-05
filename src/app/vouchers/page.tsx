@@ -1,5 +1,5 @@
 "use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Orbitron } from "next/font/google";
@@ -28,7 +28,7 @@ export default function Vouchers() {
     } else {
       router.push("/login"); // Redireciona para login se não houver aluno autenticado
     }
-  }, []);
+  }, [router]);
 
   useEffect(() => {
     const cleanup = AlunoAtualizacao(aluno, setAluno);

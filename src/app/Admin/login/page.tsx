@@ -3,9 +3,8 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useProfessor } from "@/context/ProfessorContext";
-import { Orbitron } from "next/font/google";
 
-const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
+
 
 export default function LoginAdm() {
    const [email, setEmail] = useState("");

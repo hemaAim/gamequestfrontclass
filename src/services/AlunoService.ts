@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Aluno } from '@/types/Aluno'
 
 
@@ -245,65 +246,7 @@ export const transferirBitcoin = async (
 };
 
 
-export const TranferirPontosAoAluno = async (
 
-  destinatarioId: string,
-  novoPonto: number,
-  PontosAtuais: number
-
-
-) => {
-
-
-
-  try {
-    console.log("🔍 Buscando saldo do destinatário...");
-    const balanceResponse = await fetch(PIPEFY_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${PIPEFY_TOKEN}`,
-      },
-
-    });
-    const NewPonto = PontosAtuais + novoPonto
-
-    const updateDestinatarioQuery = `
-        mutation {
-           updateCardField(input: {card_id: ${destinatarioId}, field_id: "pontos_atuais", new_value: "${NewPonto}"}) {
-              card {
-                 title
-              }
-           }
-        }
-     `;
-
-    const updateDestinatarioResponse = await fetch(PIPEFY_API_URL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${PIPEFY_TOKEN}`,
-      },
-      body: JSON.stringify({ query: updateDestinatarioQuery }),
-    });
-
-    const updateDestinatarioData = await updateDestinatarioResponse.json();
-    console.log("📄 Resposta da atualização dos pontos do destinatário:", JSON.stringify(updateDestinatarioData, null, 2));
-
-    if (updateDestinatarioData.errors) {
-      console.error("❌ Erro ao atualizar o pontos do destinatário:", updateDestinatarioData.errors);
-      return false;
-    }
-
-    console.log("✅ Transferência concluída com sucesso!");
-    return true;
-
-  } catch (error) {
-    console.error("❌ Erro na requisição:", error);
-    return false;
-  }
-
-}
 
 
 
