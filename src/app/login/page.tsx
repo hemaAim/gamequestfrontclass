@@ -1,5 +1,4 @@
-"use client";
-
+"use client"
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAluno } from "@/context/AlunoContext";
@@ -10,18 +9,17 @@ const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 export default function Login() {
   const [email, setEmail] = useState("");
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null); // Agora está correto
+  const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const { aluno, carregarAluno } = useAluno();
 
   // 🔄 Verifica se o aluno já está logado e redireciona
   useEffect(() => {
-    //console.log("Estado do aluno:", aluno);
     if (aluno) {
       console.log("Redirecionando para /dashboard");
       router.replace("/dashboard");
     }
-  }, [aluno]);
+  }, [aluno, router]); // Incluindo `router` como dependência
 
   // 🔑 Função de Login
   const handleLogin = async (e: React.FormEvent) => {
@@ -72,7 +70,7 @@ export default function Login() {
           >
             {loading ? "Carregando..." : "Login"}
           </button>
-          
+
           <p className="text-gray-500 text-sm mt-4">
             Não tem uma conta?{" "}
             <a href="/cadastro" className="text-blue-400">
@@ -90,7 +88,7 @@ export default function Login() {
             Suba de nível e desbloqueie novas conquistas!
           </h3>
           <p className="text-center text-lg max-w-md mb-6">
-            Junte-se a uma comunidade dinâmica onde cada desafio concluído lhe rende pontos, 
+            Junte-se a uma comunidade dinâmica onde cada desafio concluído lhe rende pontos,
             medalhas e recompensas. Compita com amigos, suba no ranking e torne-se um mestre na sua área!
           </p>
         </div>

@@ -1,4 +1,5 @@
 "use client"
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useState, useEffect, ReactNode, useRef, useCallback } from "react";
 import { Aluno } from "@/types/Aluno";
 import { AlunoLoginAutenticacao } from "@/services/AlunoService";

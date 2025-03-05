@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 };
 import { AlunoProvider } from "@/context/AlunoContext";
 import { Toaster } from "sonner";
-import { ProfessorProvider } from "@/context/ProfessorContext";
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -28,12 +28,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >  <ProfessorProvider>
+      > 
          <AlunoProvider> 
          <Toaster richColors position="top-right" />
         {children}
         </AlunoProvider>
-        </ProfessorProvider>
+       
       </body>
     </html>
   );
