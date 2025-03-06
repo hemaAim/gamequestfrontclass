@@ -24,7 +24,7 @@ export default function Cadastro() {
 
    useEffect(() => {
       if (aluno) {
-         router.push("/dashboard"); // Redireciona se já estiver logado
+         router.push("/dashboard"); 
       }
    }, [aluno, router]);
 
