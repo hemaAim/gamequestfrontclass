@@ -1,4 +1,4 @@
-"use client"
+"use client";
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useContext, useState, useEffect, ReactNode, useRef, useCallback } from "react";
 import { Aluno } from "@/types/Aluno";
@@ -8,26 +8,29 @@ import { StorageService } from "@/services/localStorageService";
 
 interface AlunoContextType {
   aluno: Aluno | null;
-  carregarAluno: (email: string) => Promise<void>;
+  carregarAluno: (email: string) => Promise<Aluno | null>; // Agora retorna Aluno | null
   logout: () => void;
 }
+
 
 const AlunoContext = createContext<AlunoContextType | undefined>(undefined);
 
 export function AlunoProvider({ children }: { children: ReactNode }) {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const router = useRouter();
-
   const logoutTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+
 
   const logout = useCallback(() => {
     setAluno(null);
-    StorageService.removeItem("aluno");
+    sessionStorage.clear();
+    StorageService.removeItem("aluno"); // Garante que os dados do aluno são removidos
 
     if (window.location.pathname !== "/login") {
       router.push("/login");
     }
-  }, []);
+  }, [router]);
 
   const resetTimer = useCallback(() => {
     if (!aluno) return;
@@ -37,25 +40,23 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
     logoutTimerRef.current = setTimeout(() => {
       logout();
     }, 600000); // 10 minutos
-  }, [aluno, logout]); // Agora, `resetTimer` depende apenas de `aluno` e `logout`
+  }, [aluno, logout]);
 
-  // Inicializa o aluno com dados do localStorage
-  useEffect(() => {
-    const storedAluno = StorageService.getItem<Aluno>("aluno");
-    if (storedAluno) {
-      setAluno(storedAluno);
-      resetTimer(); // Reinicia o timer ao carregar o aluno
-    }
-  }, []);
-
-  const carregarAluno = async (email: string) => {
+  const carregarAluno = async (email: string): Promise<Aluno | null> => {
     const alunoAutenticado = await AlunoLoginAutenticacao(email);
-    if (alunoAutenticado) {
+  
+    if (alunoAutenticado && alunoAutenticado.email) {
       setAluno(alunoAutenticado);
       StorageService.setItem("aluno", alunoAutenticado);
       resetTimer(); // Reinicia o timer ao fazer login
+      return alunoAutenticado;
+    } else { 
+      console.log("email invalido", email);
+      logout();
+      return null;
     }
   };
+  
 
   // Adiciona event listeners para resetar o timer em qualquer interação do usuário
   useEffect(() => {

@@ -5,6 +5,8 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useAluno } from "@/context/AlunoContext";
 import { Orbitron } from "next/font/google";
+import { AlunoLoginAutenticacao } from "@/services/AlunoService";
+import { toast } from "sonner";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 export default function Cadastro() {
@@ -31,9 +33,33 @@ export default function Cadastro() {
       setFormData({ ...formData, [e.target.name]: e.target.value });
    };
 
-   const handleSubmit = async (e: React.FormEvent) => {
-      e.preventDefault();
+   const handleSubmit = async (e: React.FormEvent) => { 
 
+      e.preventDefault();
+// Validação simples de email utilizando regex
+const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+if (!emailRegex.test(formData.email)) {
+   toast.error("O campo Email, não pode estar vazio")
+  console.log("Email inválido:", formData.email);
+
+  return null; // Retorna null se o email não for válido
+}
+
+      try {
+         const alunoAutenticado = await AlunoLoginAutenticacao(formData.email);
+         if (alunoAutenticado) {
+            toast.warning("Este e-mail já está registrado.")
+            
+            return; // Interrompe o cadastro se o e-mail já existir
+         } else {
+            toast.success("cadastro realizado com sucesso")
+         }
+      } catch (error) {
+         console.error("Erro ao verificar e-mail:", error);
+         toast.success("Erro ao verificar e-mail. Tente novamente mais tarde.")
+         
+         return;
+      } 
       const PIPEFY_API_URL = process.env.NEXT_PUBLIC_PIPEFY_API_URL!;
       const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN
       const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!); // Converte para número
@@ -77,7 +103,7 @@ export default function Cadastro() {
          });
 
          console.log("Resposta do Pipefy:", response.data);
-         alert("Cadastro enviado com sucesso!");
+         //alert("Cadastro enviado com sucesso!");
 
          router.push("/dashboard"); // Redireciona se já estiver logado
 

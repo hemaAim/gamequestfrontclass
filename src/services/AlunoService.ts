@@ -11,6 +11,12 @@ const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!); // Converte p
 //console.log("URL_PYPEFY", PIPEFY_API_URL, "TOKEN:", PIPEFY_TOKEN, "PIPEID", PIPE_ID)
 
 export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | null> {
+  // Validação simples de email utilizando regex
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    console.log("Email inválido:", email);
+    return null; // Retorna null se o email não for válido
+  }
 
   const queryLogin = `
    query {
@@ -45,10 +51,8 @@ export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | nul
     const data = await response.json();
 
     if (!data?.data?.cards?.edges?.length) {
-      return null;
+      return null; // Nenhum aluno encontrado
     }
-
-
 
     const userNode = data.data.cards.edges[0]?.node;
     if (!userNode) return null;
@@ -66,17 +70,16 @@ export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | nul
       advert_ncias: userNode.fields.find((f: any) => f.name === "Advertências")?.value || "",
       bitcoin: userNode.fields.find((f: any) => f.name === "Bitcoin")?.value || "",
       level: userNode.fields.find((f: any) => f.name === "Nivel do aluno")?.value || "",
-      compras: userNode.fields.find((f:any) => f.name === "compras")?.value || ""
-
-
+      compras: userNode.fields.find((f: any) => f.name === "compras")?.value || ""
     };
 
     return userData;
   } catch (error) {
     console.error("Erro na requisição:", error);
-    return null;
+    return null; // Retorna null caso ocorra algum erro
   }
 }
+
 
 
 export const fetchAlunosFromAPI = async (): Promise<Aluno[]> => {

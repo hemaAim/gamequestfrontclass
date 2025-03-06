@@ -19,7 +19,7 @@ const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 export default function Desafios() {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const router = useRouter(); // Inicializa o roteador do Next.js
-  //passando o ID da phase do piepfy, nesse cenario esta sendo usado os card do campo atividades
+
   const { desafios } = useDesafios(334266439);
 
   const [desafioSelecionado, setDesafioSelecionado] = useState<Desafio | null>(null);

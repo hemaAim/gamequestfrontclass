@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useAluno } from "@/context/AlunoContext";
 import { Orbitron } from "next/font/google";
+import { toast } from "sonner";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
@@ -24,20 +25,40 @@ export default function Login() {
   // 🔑 Função de Login
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
-    setLoading(true);
     setError(null);
 
+    if (!email.trim()) {
+      setError("Por favor, insira um email válido.");
+      toast.error("Erro: espaço Email inválido");
+      return;
+    }
+
+    setLoading(true);
+
     try {
-      await carregarAluno(email);
-      console.log("✅ Login bem-sucedido! Redirecionando...");
-      setTimeout(() => router.push("/dashboard"), 500); // Pequeno delay para evitar conflitos
+      console.log("validando email", email);
+
+      const alunoAutenticado = await carregarAluno(email); // Agora recebe o retorno correto
+
+      if (alunoAutenticado) {
+        console.log("✅ Login bem-sucedido! Redirecionando...");
+        toast.success("Dados encontrados ✅✨");
+
+        setTimeout(() => router.push("/dashboard"), 500);
+      } else {
+        throw new Error("Aluno não encontrado");
+      }
     } catch (error) {
       console.log("❌ Erro ao autenticar:", error);
+      toast.error("Erro: Email não cadastrado");
       setError("Aluno não encontrado.");
     }
 
     setLoading(false);
   };
+
+
+
 
   return (
     <div className="w-full h-screen bg-white">
