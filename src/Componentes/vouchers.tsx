@@ -22,7 +22,7 @@ export function DiscountCoupon({ descricao, tempodeentrega, title, vencimento, a
 
    // URL da página de detalhes do voucher
 
-   const qrUrl = `http://localhost:3001/vouchers/${voucherId}`;
+   const qrUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/vouchers/${voucherId}`;
 
    return (
       <div className="relative flex items-center bg-gradient-to-r from-cyan-600 to-green-400 max-w-full w-full h-28 rounded-lg shadow-lg overflow-hidden">
