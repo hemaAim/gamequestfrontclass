@@ -1,7 +1,7 @@
 import { Orbitron } from "next/font/google";
 import React from "react";
 import { QRCodeCanvas } from "qrcode.react";
-import Link from "next/link";
+
 
 
 type DiscountCouponProps = {
