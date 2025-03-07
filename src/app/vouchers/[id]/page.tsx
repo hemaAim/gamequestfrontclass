@@ -6,29 +6,23 @@ import { toast } from "sonner";
 
 import { useRouter } from "next/navigation";
 type Props = {
-  params: { id: string };
+  params: {
+    id: string;
+  };
 };
 
-export default function VoucherPage({ params }: Props) { 
-
-
-  
-  // Decodifica o ID recebido
+export default function VoucherPage({ params }: Props) {
   const decodedId = decodeURIComponent(params.id);
-  const [aluno, title, alunoId] = decodedId.split("-"); // Separa os dados
+  const [aluno, title, alunoId] = decodedId.split("-");
   const router = useRouter();
-  // Se os dados estiverem incompletos, retorna 404
   if (!aluno || !title) return notFound();
-  
-  const newId = Number(alunoId)
+
+  const newId = Number(alunoId);
   const removerVoucher = async () => {
     try {
       const resultado = await RemoverVoucherPorAluno(newId, title);
-      console.log("Voucher removido com sucesso:", resultado);
-      
-       toast.success(`Voucher '${title}' removido com sucesso!`); 
-       router.replace("/vouchers");
-
+      toast.success(`Voucher '${title}' removido com sucesso!`);
+      router.replace("/vouchers");
     } catch (error) {
       console.error("Erro ao remover o voucher:", error);
       alert("Erro ao remover o voucher. Tente novamente.");
