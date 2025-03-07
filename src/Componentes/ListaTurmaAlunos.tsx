@@ -15,7 +15,7 @@ interface ListaAlunoProps {
 }
 
 export default function ListaTurmaAlunos({ email, title, turma }: ListaAlunoProps) {
-  const { alunos, alunosFiltrados, loading, termoPesquisa, setTermoPesquisa, erro } = useTurmaAlunos({ email, turma, title });
+  const {  alunosFiltrados, loading, termoPesquisa, setTermoPesquisa, erro } = useTurmaAlunos({ email, turma, title });
   return (
 
     
