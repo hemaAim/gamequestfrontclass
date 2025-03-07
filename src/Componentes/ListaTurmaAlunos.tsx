@@ -1,9 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react";
+
 import { Orbitron } from "next/font/google";
-import { Aluno } from "@/types/Aluno";
-import { fetchAlunosFromAPI } from "../services/AlunoService";
+
 import { FaMedal, FaTrophy } from "react-icons/fa";
 import useTurmaAlunos from "@/hooks/useTurmaAlunos";
 
@@ -52,9 +51,13 @@ export default function ListaTurmaAlunos({ email, title, turma }: ListaAlunoProp
               const getField = (fieldName: string) =>
                 aluno.fields?.find((field) => field.name === fieldName)?.value || "-";
 
-              const rankingIcons = [<FaTrophy color="gold" className="h-5 w-5" />, <FaMedal color="silver" className="h-4 w-4" />, <FaMedal color="bronze" className="h-3 w-3" />];
+              const rankingIcons = [
+                <FaTrophy color="gold" className="h-5 w-5" key="gold" />,
+                <FaMedal color="silver" className="h-4 w-4" key="silver" />,
+                <FaMedal color="bronze" className="h-3 w-3" key="bronze" />
+              ];
+              
               const rankingIcon = rankingIcons[index] || `${index + 1}º`;
-
               return (
                 <tr
                   key={aluno.id}

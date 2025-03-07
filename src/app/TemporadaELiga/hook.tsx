@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { Aluno } from "@/types/Aluno";
 import { AlunoAtualizacao, StorageService } from "@/services/localStorageService";
-import { Orbitron } from "next/font/google";
 
 import { useTemporadaELiga } from "@/hooks/useTemporadaELiga";
 
@@ -16,12 +15,11 @@ import { TemporadaELigaService } from "@/services/Temporada&LigaService";
 import { toast } from "sonner";
 
 
-const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
-export const useAlunoTemporada = (temporadaId: number) => {
+export const useAlunoTemporada = (PhaseId: number) => {
    const [aluno, setAluno] = useState<Aluno | null>(null);
 
-   const { temporadaELiga, erro, loading } = useTemporadaELiga(334522537);
+   const { temporadaELiga, erro, loading } = useTemporadaELiga(PhaseId);
    const [desafios, setDesafios] = useState<Desafio[]>([]);
    const [desafioSelecionado, setDesafioSelecionado] = useState<Desafio | null>(null);
    const [estaNaTemporada, setEstaNaTemporada] = useState(false);

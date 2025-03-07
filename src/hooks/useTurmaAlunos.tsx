@@ -1,12 +1,10 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Orbitron } from "next/font/google";
+
 import { Aluno } from "@/types/Aluno";
 import { fetchAlunosFromAPI } from "../services/AlunoService";
-import { error } from "console";
 
-const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
 interface ListaAlunoProps {
   email?: string;
@@ -14,7 +12,7 @@ interface ListaAlunoProps {
   title?: string;
 }
 
-export default function useTurmaAlunos({ email, title, turma }: ListaAlunoProps = {}) {
+export default function useTurmaAlunos({ email, turma }: ListaAlunoProps = {}) {
   const [alunos, setAlunos] = useState<Aluno[]>([]);
   const [loading, setLoading] = useState(true);
   const [erro, setErro] = useState<string>("");
@@ -47,7 +45,7 @@ export default function useTurmaAlunos({ email, title, turma }: ListaAlunoProps 
     };
 
     fetchData();
-  }, [email]);
+  }, [email, turma]);
 
 
   

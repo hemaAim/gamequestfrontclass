@@ -12,7 +12,7 @@ import { AlunoAtualizacao, StorageService } from "@/services/localStorageService
 import { VoucherPorAluno } from "@/services/AlunoService";
 
 import { Aluno } from "@/types/Aluno";
-import Coupon from "@/Componentes/cupons";
+
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 

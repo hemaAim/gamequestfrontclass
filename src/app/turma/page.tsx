@@ -1,24 +1,23 @@
 "use client";
-
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Importação do roteador do Next.js
 import { Aluno } from "@/types/Aluno";
 import { AlunoAtualizacao, StorageService } from "@/services/localStorageService";
-import { CardDashboard } from "@/Componentes/Card-dashboard";
+
 import { Orbitron } from "next/font/google";
 import { CardMoneyQuestCoin } from "@/Componentes/CardMoneyQuestCoin";
-import { CardNovidades } from "@/Componentes/CardNovidades";
+
 import { Header } from "@/Componentes/Header";
-import ListaAlunos from "@/Componentes/ListaAlunos";
+
 import { AlunoProvider } from "@/context/AlunoContext";
 import ListaTurmaAlunos from "@/Componentes/ListaTurmaAlunos";
-import useTurmaAlunos from "@/hooks/useTurmaAlunos";
-import { CardTopTres } from "@/Componentes/card-top3";
+
 
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
-export default function Dashboard({ email, title, turma }: any) {
+export default function Dashboard({  }: any) {
   const [aluno, setAluno] = useState<Aluno | null>(null);
   const router = useRouter();
 

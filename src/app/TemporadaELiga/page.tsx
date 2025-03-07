@@ -67,7 +67,7 @@ export default function TemporadaELiga() {
                      <div className="mx-auto p-2 max-w-5xl flex flex-wrap gap-8">
                         {estaNaTemporada ? (
                            desafios.length > 0 ? (
-                              desafios.map((desafio, index) => (
+                              desafios.map((desafio) => (
                                  <CardDesafioDaTemporada
                                     key={desafio.id}
                                     imageSrc={imagensCardDesafioDaTemporada[Math.floor(Math.random() * imagensCardDesafioDaTemporada.length)]}

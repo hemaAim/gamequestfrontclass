@@ -17,7 +17,7 @@ interface ListaAlunoProps {
 
 }
 
-export default function ListaAlunos({ email, title, turma }: ListaAlunoProps) {
+export default function ListaAlunos({ email, title }: ListaAlunoProps) {
 
    const [alunos, setAlunos] = useState<Aluno[]>([]);
 

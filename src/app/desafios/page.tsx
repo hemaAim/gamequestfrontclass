@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Importação do roteador do Next.js
 import { Aluno } from "@/types/Aluno";
 import { AlunoAtualizacao, StorageService } from "@/services/localStorageService";
-import { Checkbox } from "@/components/ui/checkbox"
 
 import { Orbitron } from "next/font/google";
 import { CardMoneyQuestCoin } from "@/Componentes/CardMoneyQuestCoin";
@@ -59,7 +58,7 @@ export default function Desafios() {
 
 
       <div className="mx-auto p-2 max-w-5xl flex flex-wrap gap-8">
-        {desafios.map((desafio, index) => (
+        {desafios.map((desafio) => (
 
           <CardDesafios
             key={desafio.id}
