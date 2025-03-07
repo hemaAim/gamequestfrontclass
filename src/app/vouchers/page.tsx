@@ -65,7 +65,7 @@ export default function Vouchers() {
         Vouchers Obtidos
       </h3>
 
-      <div className="flex   items-end justify-center max-w-5xl  gap-3 flex-wrap">
+      <div className="flex  flex-col  items-end justify-center max-w-xl w-full  gap-3 flex-wrap">
         {vouchers.length > 0 ? (
           vouchers.map((voucher, index) => (
             <DiscountCoupon
