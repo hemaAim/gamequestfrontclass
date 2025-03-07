@@ -32,9 +32,7 @@ export function DiscountCoupon({ descricao, tempodeentrega, title, vencimento, a
     
 
 
-            <Link href={qrUrl} target="_blank" className="mt-2 text-blue-500 underline">
-               Acessar voucher
-            </Link>
+           
          </div>
 
 
