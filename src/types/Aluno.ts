@@ -13,6 +13,6 @@ export interface Aluno  {
    bitcoin: number;
    level: string;
    compras?: { name: string; value: string ; id: number }[];
-   fields?: { name: string; value: string ; id: number }[];
+   fields?: { name: string; value: string ; id: number }[]; 
 };
 

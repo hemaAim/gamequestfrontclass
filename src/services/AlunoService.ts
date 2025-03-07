@@ -412,6 +412,84 @@ export const AlunoComprandoNoMarketplace = async (IdComprador: number, IdProduto
 };
 
  
+
+export const RemoverVoucherPorAluno = async (IdAluno: number, NomeVoucherRemover: string) => {
+  const queryAlunoVouchers = `{
+    card(id: ${IdAluno}) {
+      fields {
+        name
+        connected_repo_items {
+          ... on Card {
+            id
+            fields {
+              value
+              name
+            }
+          }
+        }
+      }
+    }
+  }`;
+
+  try {
+    const response = await fetch(PIPEFY_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${PIPEFY_TOKEN}`,
+      },
+      body: JSON.stringify({ query: queryAlunoVouchers }),
+    });
+
+    if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
+
+    const data = await response.json();
+
+    // Filtra os vouchers conectados ao campo "compras"
+    const vouchersComprados = data.data.card.fields
+      .filter((field: any) => field.name.trim() === "compras")
+      .flatMap((field: any) => field.connected_repo_items || []);
+
+    // Remove apenas o voucher que deve ser excluído
+    const vouchersAtualizados = vouchersComprados
+      .filter((voucher: any) => {
+        const nomeVoucher = voucher.fields.find((field: any) => field.name === "Nome do Produto")?.value;
+        return nomeVoucher !== NomeVoucherRemover;
+      })
+      .map((voucher: any) => voucher.id); // Apenas os IDs dos vouchers restantes
+
+    console.log("Vouchers restantes após remoção:", vouchersAtualizados);
+
+    // Mutação para atualizar o campo "compras" apenas com os IDs restantes
+    const mutationRemoverCompra = `
+      mutation {
+        updateCardField(input: {card_id: ${IdAluno}, field_id: "compras", new_value: [${vouchersAtualizados.map((id: any) => `"${id}"`).join(", ")}]}) {
+          card {
+            title
+          }
+        }
+      }`;
+
+    const updateResponse = await fetch(PIPEFY_API_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${PIPEFY_TOKEN}`,
+      },
+      body: JSON.stringify({ query: mutationRemoverCompra }),
+    });
+
+    if (!updateResponse.ok) throw new Error(`Erro ao atualizar: ${updateResponse.status}`);
+
+    console.log(`Voucher '${NomeVoucherRemover}' removido com sucesso.`);
+    return vouchersAtualizados;
+  } catch (error) {
+    console.error("Erro ao processar a remoção do voucher:", error);
+    return [];
+  }
+};
+
+
 export const VoucherPorAluno = async (IdAluno: number) => {
   const queryAlunoVouchers = `
   {

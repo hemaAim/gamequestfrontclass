@@ -2,6 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 
+import { imagensCardDesafioDaTemporada } from "@/app/TemporadaELiga/imagens";
 import { Orbitron } from "next/font/google";
 import Image from "next/image";
 
@@ -54,7 +55,7 @@ export default function CardProduct({ categoriaDoProduto, description, price, ti
               </div>
             ) :
               <Image
-                src="/ImgCards4.jpg"
+                src={imagensCardDesafioDaTemporada[Math.floor(Math.random() * imagensCardDesafioDaTemporada.length)]}
                 alt="Imagem do Produto"
                 layout="fill"
                 objectFit="cover"

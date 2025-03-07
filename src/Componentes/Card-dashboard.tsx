@@ -1,5 +1,6 @@
 import { Orbitron } from "next/font/google";
 import Image from "next/image";
+import Link from "next/link";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
@@ -7,11 +8,13 @@ interface CardDashboardProps {
    TextNumber?: string | number;
    TextDescription?: string;
    imageSrc: string;
-   BorderPosition?: string
+   BorderPosition?: string 
+   linkPage?: string
 }
 
-export function CardDashboard({ TextDescription, TextNumber, imageSrc, BorderPosition }: CardDashboardProps) {
-   return (
+export function CardDashboard({ TextDescription, TextNumber, imageSrc, BorderPosition, linkPage}: CardDashboardProps) {
+   return ( 
+      <Link href={linkPage || ""} > 
       <div className="relative flex items-center justify-center ">
          {/* Imagem de fundo com opacidade */}
          <div className={`relative w-[320px] h-[140px] rounded-sm overflow-hidden  clip-path-CardDashboard bg-[#0B0A20]  border-orange-600 ${BorderPosition}`}>
@@ -38,5 +41,6 @@ export function CardDashboard({ TextDescription, TextNumber, imageSrc, BorderPos
             height={140}
          />
       </div>
+      </Link>
    );
 }

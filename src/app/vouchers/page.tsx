@@ -12,6 +12,7 @@ import { AlunoAtualizacao, StorageService } from "@/services/localStorageService
 import { VoucherPorAluno } from "@/services/AlunoService";
 
 import { Aluno } from "@/types/Aluno";
+import Coupon from "@/Componentes/cupons";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
@@ -40,7 +41,7 @@ export default function Vouchers() {
       if (aluno) {
         try {
           const vouchersComprados = await VoucherPorAluno(aluno.id);
-         // console.log("Vouchers comprados:", vouchersComprados);
+          // console.log("Vouchers comprados:", vouchersComprados);
           setVouchers(vouchersComprados);
         } catch (error) {
           console.error("Erro ao buscar vouchers:", error);
@@ -65,21 +66,23 @@ export default function Vouchers() {
       </h3>
 
       <div className="flex   items-end justify-center max-w-5xl  gap-3 flex-wrap">
-  {vouchers.length > 0 ? (
-    vouchers.map((voucher, index) => (
-      <DiscountCoupon
-        key={index}
-        title={voucher.title}
-        descricao={voucher.descricao}
-        price={voucher.price}
-        tempodeentrega={voucher.tempodeentrega}
-        vencimento={voucher.vencimento}
-      />
-    ))
-  ) : (
-    <p className="text-white">Nenhum voucher disponível.</p>
-  )}
-</div>
+        {vouchers.length > 0 ? (
+          vouchers.map((voucher, index) => (
+            <DiscountCoupon
+              key={index}
+              title={voucher.title}
+              descricao={voucher.descricao}
+              price={voucher.price}
+              tempodeentrega={voucher.tempodeentrega}
+              vencimento={voucher.vencimento}
+              aluno={aluno.nome_do_aluno}
+              alunoId={aluno.id}
+            />
+          ))
+        ) : (
+          <p className="text-white">Nenhum voucher disponível.</p>
+        )}
+      </div>
 
     </div>
   );

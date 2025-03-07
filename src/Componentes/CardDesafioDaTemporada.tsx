@@ -33,13 +33,13 @@ export default function CardDesafioDaTemporada({
       <div className="bg-[#0D0B21] rounded-sm p-4 w-80 text-white shadow-lg relative border-l-4 border-green-700">
          {/* Game Image */}
          <div className="relative w-full h-40 rounded-lg overflow-hidden">
-            <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" />
+            <Image src={imageSrc} alt={title} layout="fill" objectFit="cover" className="rounded-sm" />
          </div>
 
          {/* Badges */}
          <div className="absolute top-2 left-2 flex gap-2">
             {isHot && (
-               <Badge className="bg-red-500 text-white px-4 py-1 rounded-md text-base">{isHot} x</Badge>
+               <Badge className="bg-red-500 text-white px-2  rounded-md text-sm">{isHot} x</Badge>
             )}
 
          </div>

@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation"; // Importação do roteador do Next.js
 import { Aluno } from "@/types/Aluno";
 import { AlunoAtualizacao, StorageService } from "@/services/localStorageService";
+import { Checkbox } from "@/components/ui/checkbox"
 
 import { Orbitron } from "next/font/google";
 import { CardMoneyQuestCoin } from "@/Componentes/CardMoneyQuestCoin";
@@ -12,6 +13,8 @@ import { Header } from "@/Componentes/Header";
 import { CardDesafios } from "@/Componentes/CardDesafios";
 import { Desafio } from "@/types/Desafios";
 import { useDesafios } from "@/hooks/useDesafios";
+import { imagensCardDesafioDaTemporada } from "../TemporadaELiga/imagens";
+import { SkeletonDashboard } from "../dashboard/SkeletonDashboard";
 
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
@@ -41,7 +44,7 @@ export default function Desafios() {
   }, [aluno]);
 
   if (!aluno) {
-    return <h1>Redirecionando...</h1>; // Exibe algo enquanto redireciona
+    return <div><SkeletonDashboard/></div>; 
   }
 
 
@@ -56,7 +59,7 @@ export default function Desafios() {
 
 
       <div className="mx-auto p-2 max-w-5xl flex flex-wrap gap-8">
-        {desafios.map((desafio) => (
+        {desafios.map((desafio, index) => (
 
           <CardDesafios
             key={desafio.id}
@@ -66,7 +69,8 @@ export default function Desafios() {
             onClick={() => setDesafioSelecionado(desafio)}
             BorderPosition="border-l-4"
             description={desafio.descricao}
-            imageSrc="/ImgCards3.jpg"
+            
+            imageSrc={imagensCardDesafioDaTemporada [Math.floor(Math.random() * imagensCardDesafioDaTemporada .length)]} 
             title={desafio.Titulo}
             point={desafio.pontos}
           />
@@ -145,10 +149,11 @@ export default function Desafios() {
         </span>
         <div className=""> 
         <li className="text-base italic text-gray-300 mt-2">{exigencia}</li>
-        <p className="text-sm font-bold text-orange-500">
+        <p className="text-sm font-bold text-orange-500 flex">
           {valorPorExigencia.toFixed(2)} {/* Exibe o valor formatado */}
-        </p>
-      </div>
+          
+        </p> 
+       </div>
        </div>
     ));
   })()}

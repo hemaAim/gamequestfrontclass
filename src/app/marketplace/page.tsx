@@ -12,6 +12,7 @@ import { Orbitron } from "next/font/google";
 import { useMarketplace } from "@/hooks/useMarketplace";
 
 import { AlunoComprandoNoMarketplace } from "@/services/AlunoService";
+import { SkeletonDashboard } from "../dashboard/SkeletonDashboard";
 
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
@@ -39,7 +40,7 @@ export default function Marketplace() {
   }, [aluno]);
 
   if (!aluno) {
-    return <h1>Redirecionando...</h1>; // Exibe algo enquanto redireciona
+    return <div><SkeletonDashboard/></div>; // Exibe algo enquanto redireciona
   }
 
 
@@ -78,7 +79,7 @@ export default function Marketplace() {
 
       </div>
       <h3 className={`${orbitron.className} text-3xl uppercase flex flex-col items-center mt-4  font-black text-white tracking-wide`}>
-        Seu marketplace
+     Game Store 🏆
       </h3>
 
       

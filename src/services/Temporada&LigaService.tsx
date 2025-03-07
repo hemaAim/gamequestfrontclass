@@ -81,6 +81,7 @@ export class TemporadaELigaService {
       }
    }
 
+ 
    static async VerificarSeAlunoJaEstaNaTemporada(alunoId: number, temporadaId: number): Promise<boolean> {
       const query = `
       {
@@ -95,35 +96,42 @@ export class TemporadaELigaService {
             }
          }
       }`;
-
+  
       try {
-         const response = await fetch(PIPEFY_API_URL, {
-            method: "POST",
-            headers: {
-               "Content-Type": "application/json",
-               Authorization: `Bearer ${PIPEFY_TOKEN}`,
-            },
-            body: JSON.stringify({ query }),
-         });
-
-         if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
-
-         const data = await response.json();
-
-         // Filtra o campo específico "Alunos Participantes" e extrai os IDs conectados
-         const connectedIds: string[] = data.data.card.fields
-            .filter((field: any) => field.name.trim() === "Alunos Participantes")
-            .flatMap((field: any) => field.connectedRepoItems || [])
-            .map((item: any) => item.id);
-
-         console.log("IDs conectados de 'Alunos Participantes':", connectedIds);
-
-         return connectedIds.includes(alunoId.toString());
+          const response = await fetch(PIPEFY_API_URL, {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${PIPEFY_TOKEN}`,
+              },
+              body: JSON.stringify({ query }),
+          });
+  
+          if (!response.ok) throw new Error(`Erro na requisição: ${response.status}`);
+  
+          const data = await response.json();
+  
+          // 🔍 Verifica se o card existe antes de acessar fields
+          if (!data.data || !data.data.card) {
+              console.warn("⚠️ Card não encontrado ou resposta da API está incorreta.");
+              return false;
+          }
+  
+          // 🔍 Filtra o campo específico "Alunos Participantes" e extrai os IDs conectados
+          const connectedIds: string[] = data.data.card.fields
+              ?.filter((field: any) => field.name.trim() === "Alunos Participantes")
+              .flatMap((field: any) => field.connectedRepoItems || [])
+              .map((item: any) => item.id) || [];
+  
+          console.log("IDs conectados de 'Alunos Participantes':", connectedIds);
+  
+          return connectedIds.includes(alunoId.toString());
       } catch (error) {
-         console.error("Erro ao buscar 'Alunos Participantes':", error);
-         return false;
+          console.error("Erro ao buscar 'Alunos Participantes':", error);
+          return false;
       }
-   }
+  }
+  
 
    static async AdicionandoAlunoNaTemporada(IdRemetente: number, IdTemporada: number): Promise<string[]> {
       const query = `

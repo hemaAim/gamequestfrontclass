@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect} from "react";
+import { useState, useEffect } from "react";
 import { Orbitron } from "next/font/google";
 import { Aluno } from "@/types/Aluno";  // Importando o tipo Aluno
 import { fetchAlunosFromAPI, transferirBitcoin } from "../services/AlunoService";  // Importando o serviço de alunos
@@ -12,10 +12,12 @@ import { useAluno } from "@/context/AlunoContext";
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 interface ListaAlunoProps {
    email?: string
+   turma?: string,
+   title?: string
 
 }
 
-export default function ListaAlunos({ email }: ListaAlunoProps) {
+export default function ListaAlunos({ email, title, turma }: ListaAlunoProps) {
 
    const [alunos, setAlunos] = useState<Aluno[]>([]);
 
@@ -25,7 +27,7 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
    const [valorTransferencia, setValorTransferencia] = useState<number | "">("");
    const [, setErroTransferencia] = useState<string>("");
    const [termoPesquisa, setTermoPesquisa] = useState("");
-   const { aluno} = useAluno();
+   const { aluno } = useAluno();
    useEffect(() => {
       const fetchData = async () => {
          try {
@@ -92,15 +94,15 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
    };
 
    return (
-      <div className={`${orbitron.className} w-4/6 lg:w-full relative overflow-x-auto shadow-md sm:rounded-lg`}>
-         <h1 className="text-3xl font-bold text-center text-white mb-6">Lista de Alunos</h1>
+      <div className={`${orbitron.className} w-4/6 lg:w-full relative  shadow-md sm:rounded-lg`}>
+         <h1 className="text-3xl font-bold text-center text-white mb-6">{title}</h1>
 
          {erro && <p className="text-red-500 text-sm">{erro}</p>}
 
          <input
             type="text"
             placeholder="Pesquisar aluno..."
-            className="w-full px-4 py-2 mb-4 text-gray-700 border rounded-md focus:outline-none bg-transparent focus:ring-2 focus:ring-blue-400"
+            className="w-full px-4 py-2 mb-4 text-gray-200 border rounded-md focus:outline-none bg-transparent focus:ring-2 focus:ring-blue-400"
             value={termoPesquisa}
             onChange={(e) => setTermoPesquisa(e.target.value)}
          />
@@ -127,7 +129,7 @@ export default function ListaAlunos({ email }: ListaAlunoProps) {
                      return (
                         <tr
                            key={aluno.id}
-                           className="bg-gray-900/20 border-b border-gray-200 text-white text-xs hover:bg-gray-50/10 dark:hover:bg-gray-600 cursor-pointer"
+                           className="bg-gray-900/20 border-b border-gray-700 text-white text-xs hover:bg-gray-50/10 dark:hover:bg-gray-600 cursor-pointer "
                            onClick={() => setAlunoSelecionado(aluno)}
                         >
                            <td className="px-6 py-4">{aluno.id}</td>

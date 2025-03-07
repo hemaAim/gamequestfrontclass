@@ -11,6 +11,7 @@ import { CardNovidades } from "@/Componentes/CardNovidades";
 import { Header } from "@/Componentes/Header";
 import ListaAlunos from "@/Componentes/ListaAlunos";
 import { AlunoProvider } from "@/context/AlunoContext";
+import { SkeletonDashboard } from "./SkeletonDashboard";
 
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
@@ -35,7 +36,7 @@ export default function Dashboard() {
   }, [aluno]);
 
   if (!aluno) {
-    return <h1>Redirecionando...</h1>; // Exibe algo enquanto redireciona
+    return <div><SkeletonDashboard/></div>; // Exibe algo enquanto redireciona
   }
 
 
@@ -66,20 +67,21 @@ export default function Dashboard() {
 
       <div className="flex mt-20 w-full justify-between gap-20 items-center">
         <CardDashboard imageSrc={"/ClipPath.svg"} TextDescription="xp's" TextNumber={aluno.xp} BorderPosition="border-b-4" />
-        <CardDashboard imageSrc={"/ClipPath.Card2.svg"} TextDescription="Pontos" TextNumber={aluno.pontos_atuais} BorderPosition="border-y-4" />
-        <CardDashboard imageSrc={"/ClipPath.Card3.svg"} TextDescription="Turma" TextNumber={aluno.turma_do_wit} BorderPosition="border-l-4" />
+        <CardDashboard imageSrc={"/ClipPath.Card2.svg"} TextDescription="Pontos" TextNumber={aluno.pontos_atuais} BorderPosition="border-y-4" /> 
+
+        <CardDashboard imageSrc={"/ClipPath.Card3.svg"} TextDescription="Turma" TextNumber={aluno.turma_do_wit} BorderPosition="border-l-4"  linkPage="/turma"/>
       </div>
 
-      <div className="mt-28 w-full">
+      <div className="mt-28 mb-14  w-full">
         <h3 className={`${orbitron.className} text-2xl uppercase flex font-medium text-[#B87333] mb-5`}>NOVIDADES</h3>
         <div className="flex justify-between gap-20 items-center">
-          <CardNovidades LinkPages={"/desafios"} BorderPosition="border-l-4" description="Encare missões semanais e mensais, conquiste pontos e desbloqueie novas oportunidades. Quanto mais desafios você completa, mais longe você chega! 🚀" imageSrc="/CardDesafioFotoOculos.jpg" title="Desafios" />
-          <CardNovidades LinkPages={"/marketplace"} BorderPosition="border-t-4" description="Transforme seu esforço em recompensas! Troque seus pontos por prêmios exclusivos e conquiste itens incríveis dentro do jogo. O que você vai escolher primeiro? 🛍️✨" imageSrc="/CardDesafioFotoOculos.jpg" title="Marketplace" />
+          <CardNovidades LinkPages={"/desafios"} BorderPosition="border-l-4" description="Encare missões semanais e mensais, conquiste pontos e desbloqueie novas oportunidades. Quanto mais desafios você completa, mais longe você chega! 🚀" imageSrc="/cyberpunk-desafioCard.jpg" title="Desafios" />
+          <CardNovidades LinkPages={"/marketplace"} BorderPosition="border-t-4" description="Transforme seu esforço em recompensas! Troque seus pontos por prêmios exclusivos e conquiste itens incríveis dentro do jogo. O que você vai escolher primeiro? 🛍️✨" imageSrc="/cyberpunk-MarketplaceCard.jpg" title="Marketplace" />
           <CardNovidades LinkPages={"/TemporadaELiga"} BorderPosition="border-l-4" description="O caminho para a glória começa aqui! Participe das temporadas, suba no ranking e mostre que você é imbatível. Quanto mais você joga, mais você ganha! 🏅🎮" imageSrc="/CardDesafioFotoOculos.jpg" title="Temporada E Liga" />
         </div>
       </div>
       <AlunoProvider>
-        <ListaAlunos email={aluno.email} />
+        <ListaAlunos email={aluno.email} title="Lista dos Alunos" turma="" />
       </AlunoProvider>
     </div>
   );

@@ -21,7 +21,7 @@ export function CardDesafios({ title, description, imageSrc, BorderPosition, mit
       <div onClick={onClick} className={`relative w-[280px]  bg-[#0D0B21] p-4  shadow-lg border-green-500 cursor-pointer ${BorderPosition}`}>
          <span className="absolute -top-0 left-0 m-2  bg-orange-600 px-4 py-0.5 rounded-sm  text-center text-sm font-medium text-white z-20">{mitlicador || '0.7'} x</span>
          {/* Imagem no topo */}
-         <div className="w-full h-24 relative overflow-hidden ">
+         <div className="w-full h-36 relative overflow-hidden ">
             <Image
                src={imageSrc}
                alt={title}
