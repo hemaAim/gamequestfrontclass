@@ -3,7 +3,7 @@ import RemoverVoucher from "@/Componentes/RemoverVoucher";
 
 
 
-export default async function ({ params, }: { params: Promise<{ voucherId: string }> }) {
+export default async function VoucherPage({ params, }: { params: Promise<{ voucherId: string }> }) {
 
    const voucherId = (await params).voucherId
 
