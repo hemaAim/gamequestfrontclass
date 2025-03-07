@@ -1,12 +1,17 @@
 import RemoverVoucher from "@/Componentes/RemoverVoucher";
 
-export default function VoucherPage({ params }: { params: { id: string } }) {
-  if (!params?.id) {
-    return <div>Erro: Parâmetro ID não encontrado.</div>;
-  }
+type VoucherPageProps = {
+  params: { id: string };
+};
+
+export default async function VoucherPage({ params }: VoucherPageProps) {
+  // Aguarde o params ser resolvido (caso seja uma Promise)
+  const resolvedParams = await params; 
+
+  if (!resolvedParams?.id) return <div>Erro: Parâmetro ID não encontrado.</div>;
 
   // Decodifica o ID recebido
-  const decodedId = decodeURIComponent(params.id);
+  const decodedId = decodeURIComponent(resolvedParams.id);
   const [aluno, title, alunoId] = decodedId.split("-"); // Separa os dados
 
   if (!aluno || !title || !alunoId) {
