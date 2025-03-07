@@ -21,8 +21,10 @@ export default function VoucherPage({ params }: Props) {
   const removerVoucher = async () => {
     try {
       const resultado = await RemoverVoucherPorAluno(newId, title);
-      toast.success(`Voucher '${title}' removido com sucesso!`);
+      toast.success(`Voucher '${title}' removido com sucesso!`); 
+      
       router.replace("/vouchers");
+      return resultado
     } catch (error) {
       console.error("Erro ao remover o voucher:", error);
       alert("Erro ao remover o voucher. Tente novamente.");
