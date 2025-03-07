@@ -71,6 +71,7 @@ export function AlunoProvider({ children }: { children: ReactNode }) {
       window.removeEventListener("mousemove", handleActivity);
       window.removeEventListener("keydown", handleActivity);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [aluno]);
 
   return (
