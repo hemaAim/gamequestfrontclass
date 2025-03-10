@@ -28,7 +28,7 @@ export default function CardProduct({ categoriaDoProduto, description, price, ti
 
     <div className="">
 
-      <div className="group  border-orange-600 border-l-2 flex  min-w-[300px]   max-w-sm flex-col self-center overflow-hidden rounded-sm bg-[#0D0B21] shadow-md ">
+      <div className="group  border-orange-600 border-l-2 flex  min-w-[300px]  w-[300px] flex-col self-center overflow-hidden rounded-sm bg-[#0D0B21] shadow-md ">
         <a className="relative mx-3 mt-3 flex h-60 overflow-hidden rounded-sm  clip-path-CardProduto-img" href="#">
           { 
 
@@ -74,7 +74,7 @@ export default function CardProduct({ categoriaDoProduto, description, price, ti
           </a>
           <div className="mt-1 mb-5 flex items-center justify-between">
             <p>
-              <p className=" text-sm text-gray-400 mb-5">{description}</p>
+              <p className=" text-sm text-gray-400 mb-5 ">{description}</p>
               <p className={`${orbitron.className} text-sm font-bold text-gray-300 gap-2 mb-4`}><span className=" text-sm text-gray-400 mb-5" >tempo: </span> {time}</p>
               <span className={`${orbitron.className} text-2xl font-bold text-white flex items-end`}>
                 {price}<code className={`${orbitron.className} text-orange-500 text-xs font-medium ml-2`} >Crypto</code></span>

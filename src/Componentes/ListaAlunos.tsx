@@ -28,6 +28,11 @@ export default function ListaAlunos({ email, title }: ListaAlunoProps) {
    const [, setErroTransferencia] = useState<string>("");
    const [termoPesquisa, setTermoPesquisa] = useState("");
    const { aluno } = useAluno();
+
+
+   
+console.log("Dados retornados pelo useAluno():", aluno);
+
    useEffect(() => {
       const fetchData = async () => {
          try {
@@ -63,7 +68,8 @@ export default function ListaAlunos({ email, title }: ListaAlunoProps) {
    const handleTransferencia = async () => {
       console.log("Iniciando transferência...");
       if (!alunoSelecionado) return;
-      const bitcoinDisponivel = Number(String(aluno?.bitcoin).replace(/\./g, "").replace(",", "."));
+      const bitcoinDisponivel = Number(aluno?.bitcoin); 
+      console.log("aluno", aluno)
 
       console.log("biticon do aluno dentro do handletrafnferencia:", bitcoinDisponivel, "aluno", aluno?.bitcoin)
       if (valorTransferencia === "" || valorTransferencia <= 0) {
@@ -86,7 +92,7 @@ export default function ListaAlunos({ email, title }: ListaAlunoProps) {
 
       if (sucesso) {
          alert("Transferência realizada com sucesso!");
-         setAlunoSelecionado(null);
+         
          setValorTransferencia("");
       } else {
          setErroTransferencia("Erro ao realizar transferência. Tente novamente.");

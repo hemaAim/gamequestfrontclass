@@ -131,12 +131,12 @@ export const transferirBitcoin = async (
 ) => {
 
   console.log("🚀 Iniciando transferência de Bitcoin...");
-  //console.log("📌 Remetente ID:", remetenteId);
-  //console.log("📌 Destinatário ID:", destinatarioId);
- // console.log("📌 Quantidade:", quantidade);
+  console.log("📌 Remetente ID:", remetenteId);
+  console.log("📌 Destinatário ID:", destinatarioId);
+ console.log("📌 Quantidade:", quantidade);
 
-  //console.log("valor do bitcoin do remetente", user_bitcoin)
-  // 🔹 1️⃣ BUSCAR O SALDO ATUAL DO DESTINATÁRIO
+  console.log("valor do bitcoin do remetente", user_bitcoin)
+// 🔹 1️⃣ BUSCAR O SALDO ATUAL DO DESTINATÁRIO
   const getBalanceQuery = `
      query {
         card(id: ${destinatarioId}) {
