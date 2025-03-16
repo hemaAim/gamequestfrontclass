@@ -17,7 +17,7 @@ type DiscountCouponProps = {
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
 export function DiscountCoupon({ descricao, tempodeentrega, title, vencimento, aluno, alunoId }: DiscountCouponProps) {
-  /* // Criar um ID único (pode ser um hash, UUID ou outro identificador único)
+ // Criar um ID único (pode ser um hash, UUID ou outro identificador único)
    const voucherId = encodeURIComponent(`${aluno}-${title}-${alunoId}`); // Evita problemas com caracteres especiais
 
    // URL da página de detalhes do voucher
@@ -26,7 +26,7 @@ export function DiscountCoupon({ descricao, tempodeentrega, title, vencimento, a
 
    return (
       <div className="relative flex items-center bg-gradient-to-r from-cyan-600 to-green-400 max-w-full w-full h-28 rounded-lg shadow-lg overflow-hidden">
-         {/* Código de barras 
+          
          <div className="w-24 h-full p-2 bg-white flex items-center justify-center">
             <QRCodeCanvas value={qrUrl} size={80} />
     
@@ -46,7 +46,7 @@ export function DiscountCoupon({ descricao, tempodeentrega, title, vencimento, a
 
 
 
-         {/* QR Code que leva para a página do voucher }
+       
          <div className="flex flex-col items-center pr-4">
             <div className="border-l-2 border-dashed pl-4 flex flex-col items-center">
                <p className="text-xs text-gray-700 opacity-80">VENCIMENTO:</p>
@@ -58,5 +58,5 @@ export function DiscountCoupon({ descricao, tempodeentrega, title, vencimento, a
          <div className="absolute -bottom-7 left-[5.4rem] -translate-y-3 h-5 w-5 bg-[#141335] rounded-full"></div>
          <div className="absolute -right-3 top-1/2 -translate-y-1/2 h-6 w-6 bg-[#141335] rounded-full"></div>
       </div>
-   ) */
+   )
 };
