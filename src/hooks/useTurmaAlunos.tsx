@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 
 import { Aluno } from "@/types/Aluno";
-import { fetchAlunosFromAPI } from "../services/AlunoService";
 
 
 interface ListaAlunoProps {
@@ -21,7 +20,7 @@ export default function useTurmaAlunos({ email, turma }: ListaAlunoProps = {}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const alunos = await fetchAlunosFromAPI();
+       
 
         const alunosFiltrados = alunos.filter((aluno) => {
           const turmaAluno = aluno.fields?.find((field) => field.name === "Turma do WIT")?.value ?? "";
