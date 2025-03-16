@@ -7,10 +7,10 @@ const PIPEFY_API_URL = process.env.NEXT_PUBLIC_PIPEFY_API_URL!;
 const PIPEFY_TOKEN = process.env.NEXT_PUBLIC_PIPEFY_TOKEN
 
 const PIPE_ID = parseInt(process.env.NEXT_PUBLIC_PIPE_ID_ALUNOS!); // Converte para número
-
+  
 //console.log("URL_PYPEFY", PIPEFY_API_URL, "TOKEN:", PIPEFY_TOKEN, "PIPEID", PIPE_ID)
 
-export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | null> {
+export async function  AlunoLoginAutenticacao(email: string): Promise<Aluno | null> {
   // Validação simples de email utilizando regex
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
@@ -81,23 +81,26 @@ export async function AlunoLoginAutenticacao(email: string): Promise<Aluno | nul
 }
 
 
-
-export const fetchAlunosFromAPI = async (): Promise<Aluno[]> => {
-
-
+export const fetchAlunosFromAPIByPhase = async (): Promise<Aluno[]> => {
   const query = `{
-   cards(pipe_id: 305731497) {
-     edges {
-       node {
-         id
-         fields {
-           name
-           value
-         }
-       }
-     }
-   }
- }`;
+    phase(id: 334215354, first: 0) {
+      id
+      name
+      cards_count
+      cards {
+        edges {
+          node {
+            id
+            title
+            fields {
+              value
+              name
+            }
+          }
+        }
+      }
+    }
+  }`;
 
   try {
     const response = await fetch(PIPEFY_API_URL, {
@@ -108,18 +111,72 @@ export const fetchAlunosFromAPI = async (): Promise<Aluno[]> => {
       },
       body: JSON.stringify({ query }),
     });
-
-    if (!response.ok) {
-      throw new Error(`Erro na requisição: ${response.status}`);
-    }
-
+    
+    console.log("Status da resposta:", response.status);
     const data = await response.json();
-    return data.data.cards.edges.map((edge: any) => edge.node);
+    console.log("Resposta da API:", data);
+    
+
+    
+
+if (!data.data || !data.data.phase || !data.data.phase.cards || !data.data.phase.cards.edges) {
+  throw new Error("Estrutura inesperada na resposta da API");
+}
+console.log()
+return data.data.phase.cards.edges.map((edge: any) => edge.node);
+
   } catch (error) {
     console.error("Erro ao buscar alunos:", error);
     throw new Error("Erro ao carregar alunos. Tente novamente.");
   }
 };
+
+
+export const fetchAlunosFromAPI = async (afterCursor?: string): Promise<{ alunos: Aluno[]; hasNextPage: boolean; endCursor?: string }> => {
+  const query = `{
+     allCards(pipeId: 305731497, first: 50${afterCursor ? `, after: "${afterCursor}"` : ""}) {
+        pageInfo {
+           hasNextPage
+           endCursor
+        }
+        edges {
+           node {
+              id
+              fields {
+                 name
+                 value
+              }
+           }
+        }
+     }
+  }`;
+
+  try {
+     const response = await fetch(PIPEFY_API_URL, {
+        method: "POST",
+        headers: {
+           "Content-Type": "application/json",
+           Authorization: `Bearer ${PIPEFY_TOKEN}`,
+        },
+        body: JSON.stringify({ query }),
+     });
+
+     if (!response.ok) {
+        throw new Error(`Erro na requisição: ${response.status}`);
+     }
+
+     const data = await response.json();
+     return {
+        alunos: data.data.allCards.edges.map((edge: any) => edge.node),
+        hasNextPage: data.data.allCards.pageInfo.hasNextPage,
+        endCursor: data.data.allCards.pageInfo.endCursor,
+     };
+  } catch (error) {
+     console.error("Erro ao buscar alunos:", error);
+     throw new Error("Erro ao carregar alunos. Tente novamente.");
+  }
+};
+
 
 export const transferirBitcoin = async (
   user_bitcoin: number, // Recebe o user como parâmetro

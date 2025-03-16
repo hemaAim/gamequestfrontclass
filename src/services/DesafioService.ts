@@ -66,6 +66,7 @@ export class DesafioService {
                Exigência_3: fields["Exigência_3"],
                Exigência_4: fields["Exigência_4"],
                tempo_da_atividade: Number(fields["tempo_da_atividade"] || 0),
+               links: fields["Links"],
             };
          });
       } catch (error) {

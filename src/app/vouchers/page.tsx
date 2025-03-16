@@ -17,7 +17,7 @@ import { Aluno } from "@/types/Aluno";
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
 export default function Vouchers() {
-  const [aluno, setAluno] = useState<Aluno | null>(null);
+ /* const [aluno, setAluno] = useState<Aluno | null>(null);
   const [vouchers, setVouchers] = useState<any[]>([]);
   const router = useRouter();
 
@@ -86,4 +86,5 @@ export default function Vouchers() {
 
     </div>
   );
+  */
 }

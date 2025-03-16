@@ -54,6 +54,15 @@ export default function CardProduct({ categoriaDoProduto, description, price, ti
                 />
               </div>
             ) :
+            <div> 
+              <Image
+                src={imagensCardDesafioDaTemporada[Math.floor(Math.random() * imagensCardDesafioDaTemporada.length)]}
+                alt="Imagem do Produto"
+                layout="fill"
+                objectFit="cover"
+                
+                className="absolute top-0 right-0 h-full w-full object-cover"
+              />
               <Image
                 src={imagensCardDesafioDaTemporada[Math.floor(Math.random() * imagensCardDesafioDaTemporada.length)]}
                 alt="Imagem do Produto"
@@ -61,6 +70,7 @@ export default function CardProduct({ categoriaDoProduto, description, price, ti
                 objectFit="cover"
                 className="absolute top-0 right-0 h-full w-full object-cover"
               />
+              </div>
           }
 
 

@@ -9,5 +9,6 @@ export type Desafio = {
    Exigência_2: string;
    Exigência_3: string;
    Exigência_4: string;
-   tempo_da_atividade: number
+   tempo_da_atividade: number;
+   links: string;
 };
