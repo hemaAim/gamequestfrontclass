@@ -51,7 +51,7 @@ export default function Dashboard() {
       <div className="flex mt-20 w-full justify-between gap-20 items-center">
         <CardDashboard imageSrc="/ClipPath.svg" TextDescription="xp's" TextNumber={aluno.xp} BorderPosition="border-b-4" />
         <CardDashboard imageSrc="/ClipPath.Card2.svg" TextDescription="Pontos" TextNumber={aluno.pontos_atuais} BorderPosition="border-y-4" />
-        <CardDashboard imageSrc="/ClipPath.Card3.svg" TextDescription="Turma" TextNumber={aluno.turma_do_wit} BorderPosition="border-l-4" linkPage="/turma" />
+        <CardDashboard imageSrc="/ClipPath.Card3.svg" TextDescription="Turma" TextNumber={aluno.turma_do_wit} BorderPosition="border-l-4" linkPage="" />
       </div>
 
       <div className="mt-28 mb-14 w-full">
