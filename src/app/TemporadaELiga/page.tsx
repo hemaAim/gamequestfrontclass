@@ -10,6 +10,7 @@ import { FaBitcoin, FaGlobe } from "react-icons/fa";
 import { imagensCardDesafioDaTemporada, imagensBGDDaTemporada } from "./imagens";
 import { useAlunoTemporada } from "./hook";
 import SkeletonTemporadaELiga from "./Skeleton";
+import Link from "next/link";
 
 const orbitron = Orbitron({ subsets: ["latin"], weight: ["400", "900"] });
 
@@ -142,6 +143,21 @@ export default function TemporadaELiga() {
                   <span className="sr-only">Fechar modal</span>
                 </button>
               </div>
+
+              {desafioSelecionado.links ? (
+                <div className="m-4">
+                  <Link
+                    target="_blank"
+                    href={desafioSelecionado.links}
+                    className="relative text-blue-500 font-medium transition-colors duration-300 hover:text-blue-700
+                 before:absolute before:-bottom-1 before:left-0 before:w-0 before:h-[2px] 
+                 before:bg-blue-500 before:transition-all before:duration-300
+                 hover:before:w-full"
+                  >
+                    Link Da Atividade
+                  </Link>
+                </div>
+              ) : null}
               <div className="p-4 md:p-5">
                 <p className="text-base font-semibold italic text-gray-200 mt-2">{desafioSelecionado.descricao}</p>
                 <ol className="relative border-s mt-10 border-orange-500 dark:border-gray-600 ms-3.5 mb-4 md:mb-5">

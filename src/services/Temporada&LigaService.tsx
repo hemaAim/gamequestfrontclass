@@ -271,6 +271,7 @@ export class TemporadaELigaService {
                   Exigência_3: campoMap["Exigência_3"] || "",
                   Exigência_4: campoMap["Exigência_4"] || "",
                   AlunosQueRealizaram: campoMap["Alunos que realizaram a atividade"] || "",
+                  links: campoMap["Links"] || "",
                };
             });
 
